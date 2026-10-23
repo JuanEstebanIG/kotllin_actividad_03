@@ -9,7 +9,9 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun Home(
-    onirProducto: () -> Unit
+    onirProducto: () -> Unit,
+    onirCarrito: () -> Unit,
+    onirUsuario: () -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
@@ -20,6 +22,16 @@ fun Home(
         Button(onClick = onirProducto) {
             Text(
                 text = "Ir al producto"
+            )
+        }
+        Button(onClick = onirCarrito) {
+            Text(
+                text = "Ir al carrito"
+            )
+        }
+        Button(onClick = onirUsuario) {
+            Text(
+                text = "Ir a usuario"
             )
         }
     }

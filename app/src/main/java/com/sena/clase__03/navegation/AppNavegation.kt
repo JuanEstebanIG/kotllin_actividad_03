@@ -5,10 +5,11 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
+import com.sena.clase__03.ui.screen.Carrito as CarritoScreen
 import com.sena.clase__03.ui.screen.DetalleProducto as DetalleProductoScreen
 import com.sena.clase__03.ui.screen.Home
-import com.sena.clase__03.ui.screen.Producto as ProductoScreen
+import com.sena.clase__03.ui.screen.Producto
+import com.sena.clase__03.ui.screen.Usuario as UsuarioScreen
 
 @Composable
 fun AppNavegation(
@@ -24,26 +25,51 @@ fun AppNavegation(
         composable<Inicio> {
             Home(
                 onirProducto = {
-                    navController.navigate(route = Producto)
+                    navController.navigate(Producto)
+                },
+                onirCarrito = {
+                    navController.navigate(Carrito)
+                },
+                onirUsuario = {
+                    navController.navigate(Usuario(nombre = "Carlos"))
                 }
             )
         }
 
         composable<Producto> {
-            ProductoScreen(
-                onirDetalleProducto = { idProducto ->
-                    navController.navigate(route = DetalleProducto(id = idProducto))
+            Producto(
+                onirDetalleProducto = { id ->
+                    navController.navigate(DetalleProducto(id))
                 },
+                onVolverHome = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable<DetalleProducto> { dato ->
+            DetalleProductoScreen(
+                id = dato.arguments?.getInt("id") ?: 0,
                 onVolver = {
                     navController.popBackStack()
                 }
             )
         }
 
-        composable<DetalleProducto> { backStackEntry ->
-            val detalle = backStackEntry.toRoute<DetalleProducto>()
-            DetalleProductoScreen(
-                id = detalle.id
+        composable<Carrito> {
+            CarritoScreen(
+                onVolver = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable<Usuario> { dato ->
+            UsuarioScreen(
+                nombre = dato.arguments?.getString("nombre") ?: "",
+                onVolver = {
+                    navController.popBackStack()
+                }
             )
         }
     }

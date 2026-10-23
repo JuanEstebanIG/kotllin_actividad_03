@@ -1,11 +1,25 @@
 package com.sena.clase__03.ui.screen
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 
 @Composable
-fun DetalleProducto(id: Int){
-    Text(
-        text = "El id del producto es $id"
-    )
+fun DetalleProducto(
+    id: Int,
+    onVolver: () -> Unit
+) {
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Text(
+            text = "El id del producto es $id"
+        )
+        Button(onClick = onVolver) {
+            Text(text = "Volver")
+        }
+    }
 }
